@@ -1,11 +1,20 @@
 import numpy as np
 
 from stl import mesh
-from print_graph.draw_3d_shapes import draw_cube
+from print_graph.draw_3d_shapes import Cube
 
 
 def cube():
-    faces = np.array(draw_cube(0, 5, 0, 5, 0, 5))
+    cube = Cube(0, 5, 0, 5, 0, 5)
+    faces = []
+    faces.extend(cube.back_left_face())
+    faces.extend(cube.back_right_face())
+    faces.extend(cube.front_left_face())
+    faces.extend(cube.front_right_face())
+    faces.extend(cube.top_face())
+    faces.extend(cube.bottom_face())
+
+    faces = np.array(faces)
     data = np.zeros(len(faces), dtype=mesh.Mesh.dtype)
     data['vectors'] = faces
     object = mesh.Mesh(data)
