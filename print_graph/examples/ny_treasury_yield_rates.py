@@ -21,8 +21,8 @@ def convert_ny_treasury_xml_to_list_of_dicts(ny_treasury_xml):
     list_of_dicts = list()
     i = 0
     for pt in property_tags:
-        if i > 1000:
-            break
+        # if i > 1000:
+        #     break
         d = dict()
         for c in pt.getchildren():
             column = c.tag.split('}')[-1]
@@ -54,15 +54,16 @@ def generate_stl_for_ny_treasury_yield_rates():
     del df['BC_30YEARDISPLAY']
 
     df = df.set_index(["NEW_DATE"])
-    df = df.resample('D').ffill()
 
     df = df.reindex_axis(['BC_1MONTH', 'BC_3MONTH', 'BC_6MONTH', 'BC_1YEAR', 'BC_2YEAR', 'BC_3YEAR', 'BC_5YEAR',
                           'BC_7YEAR', 'BC_10YEAR', 'BC_20YEAR', 'BC_30YEAR'], axis=1)
 
-    for c in df.columns:
-        if c not in ["BC_3MONTH", "BC_6MONTH"]:
-            del df[c]
+    # for c in df.columns:
+    #     if c not in ["BC_3MONTH", "BC_6MONTH"]:
+    #         del df[c]
 
+    df = df.fillna(-1)
+    df = df.resample('D').bfill()
     stl = convert_pandas_to_stl(df, x_step=0.003, y_step=1, z_step=2)
 
     filename = '_example_ny_treasury_stl.stl'

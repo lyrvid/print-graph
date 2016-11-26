@@ -82,7 +82,7 @@ def _walk_df_and_draw_shapes_3d(df, x_step=1, y_step=1, z_step=1):
 
             if idx == 1:
                 x1 = 0
-                x2 = 1 + x_step
+                x2 = x1 + x_step
 
             else:
                 x1 = x2
@@ -93,54 +93,51 @@ def _walk_df_and_draw_shapes_3d(df, x_step=1, y_step=1, z_step=1):
 
             y11 = last_point * y_step
             y12 = current_point * y_step
+
             y21 = last_point_second * y_step
             y22 = current_point_second * y_step
 
-            if current_point == last_point:
-                # This is a square, we can draw it all the way to the base
-                arrays.extend(_square(x1, x2, y11, y12, z1, z2, first=first_column, last=last_column))
-                arrays.extend(_square(x1, x2, y21, y22, z1, z2, first=first_column, last=last_column))
-            else:
-                cube = Cube(x1, x2, 0, min(y11, y12), z1, z2)
+            # cube = Cube(x1, x2, 0, min(y11, y12), z1, z2)
+            if y11 >= 0 and y12 >= 0 and y21 >= 0 and y22 >= 0:
                 stuff = join_points(x1, x2, y11, y12, y21, y22, z1, z2)
                 arrays.extend(stuff)
 
 
-                # if first_valid_point:
-                #     arrays.extend(cube.back_left_face())
-                # elif last_column:
-                #     arrays.extend(cube.front_right_face())
-                #
-                # cube2 = Cube(x1, x2, 0, min(y21, y22), z21, z22)
-                # if first_valid_point_second:
-                #     arrays.extend(cube2.back_left_face())
-                # elif last_column:
-                #     arrays.extend(cube2.front_right_face())
-                #
-                # pyramid = Pyramid(x1, x2, y11, y12, z11, z12)
-                # if first_valid_point:
-                #     arrays.extend(pyramid.back_face())
-                # elif last_column:
-                #     arrays.extend(pyramid.front_face())
-                #
-                # pyramid2 = Pyramid(x1, x2, y21, y22, z21, z22)
-                # if first_valid_point_second:
-                #     arrays.extend(pyramid2.back_face())
-                # elif last_column:
-                #     arrays.extend(pyramid2.front_face())
+            # if first_valid_point:
+            #     arrays.extend(cube.back_left_face())
+            # elif last_column:
+            #     arrays.extend(cube.front_right_face())
+            #
+            # cube2 = Cube(x1, x2, 0, min(y21, y22), z21, z22)
+            # if first_valid_point_second:
+            #     arrays.extend(cube2.back_left_face())
+            # elif last_column:
+            #     arrays.extend(cube2.front_right_face())
+            #
+            # pyramid = Pyramid(x1, x2, y11, y12, z11, z12)
+            # if first_valid_point:
+            #     arrays.extend(pyramid.back_face())
+            # elif last_column:
+            #     arrays.extend(pyramid.front_face())
+            #
+            # pyramid2 = Pyramid(x1, x2, y21, y22, z21, z22)
+            # if first_valid_point_second:
+            #     arrays.extend(pyramid2.back_face())
+            # elif last_column:
+            #     arrays.extend(pyramid2.front_face())
 
 
-                # if idx == 1:
-                #     arrays.extend(cube.front_left_face())
-                #     arrays.extend(pyramid.left_side())
-                # elif idx == (len(df) - 1):
-                #     arrays.extend(cube.back_right_face())
-                #     arrays.extend(pyramid.right_side())
-                #
-                # if y2 > y1:
-                #     arrays.extend(pyramid.left_side())
-                # else:
-                #     arrays.extend(pyramid.right_side())
+            # if idx == 1:
+            #     arrays.extend(cube.front_left_face())
+            #     arrays.extend(pyramid.left_side())
+            # elif idx == (len(df) - 1):
+            #     arrays.extend(cube.back_right_face())
+            #     arrays.extend(pyramid.right_side())
+            #
+            # if y2 > y1:
+            #     arrays.extend(pyramid.left_side())
+            # else:
+            #     arrays.extend(pyramid.right_side())
 
             last_point = current_point
             last_point_second = current_point_second

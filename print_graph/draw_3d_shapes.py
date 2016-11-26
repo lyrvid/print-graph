@@ -221,20 +221,11 @@ class Pyramid2(Shape):
 
 
 def join_points(x1, x2, y11, y12, y21, y22, z1, z2):
-    if y11 > y12:
-        y11, y12 = y12, y11
-        x3 = x1
-    else:
-        x3 = x2
-
-    if y21 > y22:
-        y21, y22 = y22, y21
-
     return [
-        np.array([[x1, y21, z2],
-                  [x3, y22, z2],
-                  [x1, y11, z1]]),
         np.array([[x1, y11, z1],
-                  [x3, y22, z2],
-                  [x3, y12, z1]])
+                  [x2, y12, z1],
+                  [x1, y21, z2]]),
+        np.array([[x2, y12, z1],
+                  [x2, y22, z2],
+                  [x1, y21, z2]])
     ]
