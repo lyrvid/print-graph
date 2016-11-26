@@ -104,7 +104,7 @@ def _walk_df_and_draw_shapes_3d(df, x_step=1, y_step=1, z_step=1):
                 cube = Cube(x1, x2, 0, min(y11, y12), z1, z2)
                 stuff = join_points(x1, x2, y11, y12, y21, y22, z1, z2)
                 arrays.extend(stuff)
-                
+
 
                 # if first_valid_point:
                 #     arrays.extend(cube.back_left_face())
