@@ -62,10 +62,10 @@ def generate_stl_for_ny_treasury_yield_rates():
     #     if c not in ["BC_3MONTH", "BC_6MONTH"]:
     #         del df[c]
 
-    df = df.fillna(method='ffill')
+    # df = df.fillna(method='ffill')
     df = df.fillna(-1)
     df = df.resample('D').bfill()
-    stl = convert_pandas_to_stl(df, x_step=0.003, y_step=1, z_step=2)
+    stl = convert_pandas_to_stl(df, x_step=0.003, y_step=1, z_step=-2)
 
     filename = '_example_ny_treasury_stl.stl'
     stl.save(filename)
